@@ -111,8 +111,8 @@ io.on("connection", (socket) => {
 app.get("/configuration", (req, res) => {
   res.setHeader("Access-Control-Allow-Origin", "http://localhost:5173")
   res.setHeader("Content-Type", "application/json");
-  let proxiesText = readFileSync(join(currentPath(), "data", "proxies.txt"), "utf-8");
-  let uasText = readFileSync(join(currentPath(), "data", "uas.txt"), "utf-8");
+  const proxiesText = readFileSync(join(currentPath(), "data", "proxies.txt"), "utf-8");
+  const uasText = readFileSync(join(currentPath(), "data", "uas.txt"), "utf-8");
 
   res.send({
     proxies: btoa(proxiesText),
@@ -137,8 +137,8 @@ app.post("/configuration", bodyParser.json(), (req, res) => {
   // console.log(req.body)
 
   // atob and btoa are used to avoid the problems in sending data with // characters, etc.
-  let proxies = atob(req.body["proxies"]);
-  let uas = atob(req.body["uas"]);
+  const proxies = atob(req.body["proxies"]);
+  const uas = atob(req.body["uas"]);
   writeFileSync(join(currentPath(), "data", "proxies.txt"), proxies, {
     encoding: "utf-8"
   });
